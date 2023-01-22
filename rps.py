@@ -5,8 +5,6 @@ import customtkinter as ctk
 ctk.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
-try:os.system('pip install random customtkinter')
-except Exception as e:print(f'Error: {e} \n has happened')
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
