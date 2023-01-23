@@ -10,7 +10,7 @@ class App(ctk.CTk):
         super().__init__()
 
         # configure window
-        self.title("CustomTkinter complex_example.py")
+        self.title("Snake Water Gun vs computer")
         self.geometry(f"{1100}x{580}") # snake:0 water:1 gun:2
         self.soln_matrix = [[0,1,2],[2,0,1],[1,2,0]]# 0:draw 1:win 2:lose
         self.ctr_win = 0
@@ -20,12 +20,12 @@ class App(ctk.CTk):
         self.wins  = ctk.CTkLabel(self,text="Wins \n"+str(self.ctr_win))
         self.loose  = ctk.CTkLabel(self,text="Losses \n"+str(self.ctr_loose))
         self.draw  = ctk.CTkLabel(self,text="Draws \n"+str(self.ctr_draw))
-        self.snake = ctk.CTkButton(self,text='Snake',command=self.calc0)
-        self.water = ctk.CTkButton(self,text='Water',command=self.calc1)
-        self.gun = ctk.CTkButton(self,text='Gun',command=self.calc2)
-        self.reset_b = ctk.CTkButton(self,text='reset',command=self.reset)
+        self.snake = ctk.CTkButton(self,text='Snake',command=self.calc0,corner_radius=20)
+        self.water = ctk.CTkButton(self,text='Water',command=self.calc1,corner_radius=20)
+        self.gun = ctk.CTkButton(self,text='Gun',command=self.calc2,corner_radius=20)
+        self.reset_b = ctk.CTkButton(self,text='reset',command=self.reset,corner_radius=20,fg_color='red',hover_color='darkred')
 
-        self.current = ctk.CTkLabel(self,text="You Played :\nComputer Played:")
+        self.current = ctk.CTkLabel(self,text="You Played :\nComputer Played:\nOutcome:\n")
 
         # self.test  = ctk.CTkLabel(self,textvariable=self.test_var)
         self.wins.place(relx =0.5,rely = 0.25)
@@ -43,11 +43,17 @@ class App(ctk.CTk):
     def calc(self,chosen:int):
         # print(f"ran with  {chosen}")
         computer:int = random.randint(0,2)
-        scr = f"You Played :{self.lts[chosen]}\nComputer Played:{self.lts[computer]}"
-        if self.soln_matrix[chosen][computer] == 0:self.ctr_draw +=1
-        elif self.soln_matrix[chosen][computer] == 1:self.ctr_win +=1
-        elif self.soln_matrix[chosen][computer] == 2:self.ctr_loose +=1
+        if self.soln_matrix[chosen][computer] == 0:
+            self.ctr_draw +=1
+            outcome = 'Drew'
+        elif self.soln_matrix[chosen][computer] == 1:
+            self.ctr_win +=1
+            outcome = 'Won'
+        elif self.soln_matrix[chosen][computer] == 2:
+            self.ctr_loose +=1
+            outcome = 'Lost'
         else:pass
+        scr = f"You Played :{self.lts[chosen]}\nComputer Played:{self.lts[computer]}\nOutcome:{outcome}"
         self.draw.configure(self,text="Draws \n"+str(self.ctr_draw))
         self.wins.configure(self, text="Win \n" + str(self.ctr_win))
         self.loose.configure(self, text="Loose \n" + str(self.ctr_loose))
